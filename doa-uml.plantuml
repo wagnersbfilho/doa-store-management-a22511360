@@ -1,0 +1,104 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+enum Category << enumeration >> {
+  + BRIDAL: 
+  + CASUAL: 
+  + LUXURY: 
+}
+class Customer {
+  - email: String
+  - id: int
+  - name: String
+  - nif: String
+  - phone: String
+  - address: String
+}
+class Earring {
+  - claspType: String
+}
+class Employee {
+  - hireDate: Date
+  - nif: String
+  - name: String
+  - salary: double
+  - id: int
+}
+class Jewelry {
+  - category: Category
+  - type: JewelryType
+  - weight: double
+  - name: String
+  - material: String
+  - id: int
+  - stock: int
+  - price: double
+}
+enum JewelryType << enumeration >> {
+  + NECKLACE: 
+  + RING: 
+  + EARRING: 
+}
+class Manager {
+  - department: String
+  - bonus: double
+}
+class Necklace {
+  - length: double
+}
+class Order {
+  - jewelryItems: List<OrderItem>
+  - totalAmount: double
+  - id: int
+  - customer: Customer
+  - orderDate: Date
+  - status: OrderStatus
+}
+class OrderItem {
+  - quantity: int
+  - subtotal: double
+  - jewelry: Jewelry
+}
+enum OrderStatus << enumeration >> {
+  + PENDING: 
+  + ACCEPTED: 
+  + CANCELED: 
+  + DELIVERED: 
+}
+class Payment {
+  - order: Order
+  - paymentMethod: PaymentMethod
+  - id: int
+  - amount: double
+  - paymentDate: Date
+}
+enum PaymentMethod << enumeration >> {
+  + BANK_TRANSFER: 
+  + CREDIT_CARD: 
+  + CASH: 
+}
+class Ring {
+  - size: int
+}
+class Salesperson {
+  - totalSales: double
+  - commissionRate: double
+}
+
+Earring        -[#000082,plain]-^  Jewelry       
+Jewelry       "1" *-[#595959,plain]-> "category\n1" Category      
+Jewelry       "1" *-[#595959,plain]-> "type\n1" JewelryType   
+Manager        -[#000082,plain]-^  Employee      
+Necklace       -[#000082,plain]-^  Jewelry       
+Order         "1" *-[#595959,plain]-> "customer\n1" Customer      
+Order         "1" *-[#595959,plain]-> "jewelryItems\n*" OrderItem     
+Order         "1" *-[#595959,plain]-> "status\n1" OrderStatus   
+OrderItem     "1" *-[#595959,plain]-> "jewelry\n1" Jewelry       
+Payment       "1" *-[#595959,plain]-> "order\n1" Order         
+Payment       "1" *-[#595959,plain]-> "paymentMethod\n1" PaymentMethod 
+Ring           -[#000082,plain]-^  Jewelry       
+Salesperson    -[#000082,plain]-^  Employee      
+@enduml

@@ -58,6 +58,26 @@ pt.ipp.estg.doa.store <br>
 - Main: Application entry point with user interface (console menu)
 
 #### Key features implemented
+1. Apply OOP Principles:
+   - Design and implement class hierarchies using inheritance
+   - Define and implement interfaces for common behaviors
+   - Apply encapsulation and information hiding
+   - Utilize generics for type-safe collections
+     <br><br>
+2. Design Software Architecture:
+   - Create well-structured package organization
+   - Define clear relationships between entities (composition, aggregation, association)
+   - Implement business logic with appropriate constraints
+     <br><br>
+3. Implement Data Persistence:
+   - Parse and generate CSV files
+   - Manage data consistency across file operations
+   - Handle file I/O exceptions appropriately
+     <br><br>
+4. Utilize Java Collections:
+   - Select appropriate collection types (ArrayList, HashMap, etc.)
+   - Implement searching, filtering, and sorting operations
+   - Manage object relationships through collections
 
 #### References used
 
