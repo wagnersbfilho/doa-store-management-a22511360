@@ -1,21 +1,23 @@
 package pt.ipp.estg.doa.store.employees;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Employee {
 
     private int id;
     private String name;
     private String nif;
-    private Date hireDate;
+    private LocalDate hireDate;
     private double salary;
+    private EmployeeType type;
 
-    public Employee(int id, String name, String nif, Date hireDate, double salary) {
+    public Employee(int id, String name, String nif, LocalDate hireDate, double salary, EmployeeType type) {
         this.id = id;
         this.name = name;
         this.nif = nif;
         this.hireDate = hireDate;
         this.salary = salary;
+        this.type = type;
     }
 
     @Override
@@ -53,11 +55,11 @@ public class Employee {
         this.nif = nif;
     }
 
-    public Date getHireDate() {
+    public LocalDate getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
@@ -67,5 +69,13 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public EmployeeType getType() {
+        return type;
+    }
+
+    public void setType(EmployeeType type) {
+        this.type = type;
     }
 }
