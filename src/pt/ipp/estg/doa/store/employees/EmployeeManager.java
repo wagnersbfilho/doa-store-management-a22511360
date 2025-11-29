@@ -43,6 +43,36 @@ public class EmployeeManager {
         return employees.stream().mapToDouble(Employee::getSalary).sum();
     }
 
+    public void add (SalesPerson salesPerson) {
+        List<Employee> employees = findAll();
+        salesPerson.setId(employees.size() +1);
+        employees.add(salesPerson);
+        this.repository.updateEmployeeData(employees);
+    }
+
+    public void add (Manager manager) {
+        List<Employee> employees = findAll();
+        manager.setId(employees.size() +1);
+        employees.add(manager);
+        this.repository.updateEmployeeData(employees);
+    }
+
+    public void delete (int id) {
+        List<Employee> employees = findAll();
+        Employee employee = employees.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Employee nao encontrado."));
+
+        //TODO Validation: Cannot delete if employee has associated orders (for salespeople)
+        //if (employee instanceof SalesPerson sp && sp.hasOrders()) {
+        //    throw new IllegalStateException("SalesPerson esta associado a um Ordem e nao pode ser apagado.");
+        //}
+
+        employees.remove(employee);
+        this.repository.updateEmployeeData(employees);
+    }
+
     public void updateEmployeeSalary(Employee employee, double newSalary) {
         List<Employee> employees = findAll();
         employees.stream()
