@@ -26,6 +26,10 @@ public class Jewelry extends Entity {
         this.category = category;
     }
 
+    public Jewelry(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Jewelry{" +

@@ -1,16 +1,11 @@
 package pt.ipp.estg.doa.store.utils;
 
 import pt.ipp.estg.doa.store.customers.Customer;
-import pt.ipp.estg.doa.store.employees.Employee;
-import pt.ipp.estg.doa.store.employees.EmployeeType;
-import pt.ipp.estg.doa.store.employees.Manager;
-import pt.ipp.estg.doa.store.employees.SalesPerson;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

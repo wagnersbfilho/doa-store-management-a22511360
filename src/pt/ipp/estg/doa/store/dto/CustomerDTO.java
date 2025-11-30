@@ -9,14 +9,6 @@ public class CustomerDTO extends Dto{
     private String address;
     private String phone;
 
-    public CustomerDTO() {
-
-    }
-
-    public CustomerDTO(int i) {
-        super();
-    }
-
     public Integer getId() {
         return id;
     }

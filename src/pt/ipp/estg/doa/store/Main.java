@@ -2,15 +2,10 @@ package pt.ipp.estg.doa.store;
 
 import pt.ipp.estg.doa.store.customers.Customer;
 import pt.ipp.estg.doa.store.customers.CustomerManager;
-import pt.ipp.estg.doa.store.dto.CustomerDTO;
-import pt.ipp.estg.doa.store.dto.EmployeeDTO;
-import pt.ipp.estg.doa.store.dto.JewelryDTO;
-import pt.ipp.estg.doa.store.dto.OrderDTO;
+import pt.ipp.estg.doa.store.dto.*;
 import pt.ipp.estg.doa.store.employees.*;
 import pt.ipp.estg.doa.store.jewelry.*;
-import pt.ipp.estg.doa.store.orders.Order;
-import pt.ipp.estg.doa.store.orders.OrderManager;
-import pt.ipp.estg.doa.store.orders.OrderStatus;
+import pt.ipp.estg.doa.store.orders.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -120,5 +115,23 @@ public class Main {
         orderManager.delete(2);
         System.out.println("--- ALL ORDERS UPDATED ---");
         orderManager.findAll().stream().forEach(System.out::println);
+
+
+        OrderItemManager orderItemManager = new OrderItemManager();
+        System.out.println("\n\n***************** ORDER ITEM *******************");
+        System.out.println("--- ADD ORDER ITEM ---");
+        orderItemManager.add(new OrderItem(0, new Order(1), new Jewelry(1), 1000, 5555.55));
+        System.out.println("--- ALL ORDER ITEMS ---");
+        orderItemManager.findAll().stream().forEach(System.out::println);
+        System.out.println("--- ORDER ITEM BY ID ---");
+        System.out.println(orderItemManager.findById(1));
+        System.out.println("--- UPDATE ORDER ITEM ---");
+        OrderItemDTO orderItemDTO = new OrderItemDTO();
+        orderItemDTO.setSubtotal(1111.11);
+        orderItemManager.update(1, orderItemDTO);
+        System.out.println("--- DELETE ORDER ITEM ---");
+        orderItemManager.delete(2);
+        System.out.println("--- ALL ORDER ITEMS UPDATED ---");
+        orderItemManager.findAll().stream().forEach(System.out::println);
     }
 }

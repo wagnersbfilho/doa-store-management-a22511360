@@ -25,11 +25,15 @@ public class Order extends Entity {
         this.status = status;
     }
 
+    public Order(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", customer=" + customer +
+                ", customer=" + (customer != null ? customer.getId() : null) +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
                 ", status=" + status +
