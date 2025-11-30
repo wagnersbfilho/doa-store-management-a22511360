@@ -13,6 +13,10 @@ public class Customer extends Entity {
     private String address;
     private String phone;
 
+    public Customer(int id) {
+        this.id = id;
+    }
+
     public Customer(int id, String name, String nif, String email, String address, String phone) {
         this.id = id;
         this.name = name;

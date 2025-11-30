@@ -1,25 +1,26 @@
 package pt.ipp.estg.doa.store.orders;
 
 import pt.ipp.estg.doa.store.customers.Customer;
-import pt.ipp.estg.doa.store.jewelry.Jewelry;
+import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.dto.OrderDTO;
+import pt.ipp.estg.doa.store.utils.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-public class Order {
+public class Order extends Entity {
 
     private int id;
     private Customer customer;
-    private Date orderDate;
+    private LocalDate orderDate;
     private List<OrderItem> jewelryItems;
     private double totalAmount;
     private OrderStatus status;
 
-    public Order(int id, Customer customer, Date orderDate, List<OrderItem> jewelryItems, double totalAmount, OrderStatus status) {
+    public Order(int id, Customer customer, LocalDate orderDate, double totalAmount, OrderStatus status) {
         this.id = id;
         this.customer = customer;
         this.orderDate = orderDate;
-        this.jewelryItems = jewelryItems;
         this.totalAmount = totalAmount;
         this.status = status;
     }
@@ -30,10 +31,18 @@ public class Order {
                 "id=" + id +
                 ", customer=" + customer +
                 ", orderDate=" + orderDate +
-                ", jewelryItems=" + jewelryItems +
                 ", totalAmount=" + totalAmount +
                 ", status=" + status +
                 '}';
+    }
+
+    @Override
+    public <T extends Dto> void update(T dto) {
+        OrderDTO orderDTO = (OrderDTO) dto;
+        if (orderDTO.getCustomerId() != null) this.setCustomer(new Customer(orderDTO.getCustomerId()));
+        if (orderDTO.getOrderDate() != null) this.setOrderDate(orderDTO.getOrderDate());
+        if (orderDTO.getTotalAmount() != null) this.setTotalAmount(orderDTO.getTotalAmount());
+        if (orderDTO.getStatus() != null) this.setStatus(orderDTO.getStatus());
     }
 
     public int getId() {
@@ -52,11 +61,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public Date getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 

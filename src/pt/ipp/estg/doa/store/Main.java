@@ -5,8 +5,12 @@ import pt.ipp.estg.doa.store.customers.CustomerManager;
 import pt.ipp.estg.doa.store.dto.CustomerDTO;
 import pt.ipp.estg.doa.store.dto.EmployeeDTO;
 import pt.ipp.estg.doa.store.dto.JewelryDTO;
+import pt.ipp.estg.doa.store.dto.OrderDTO;
 import pt.ipp.estg.doa.store.employees.*;
 import pt.ipp.estg.doa.store.jewelry.*;
+import pt.ipp.estg.doa.store.orders.Order;
+import pt.ipp.estg.doa.store.orders.OrderManager;
+import pt.ipp.estg.doa.store.orders.OrderStatus;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -98,5 +102,23 @@ public class Main {
         customerManager.delete(2);
         System.out.println("--- ALL CUSTOMERS UPDATED ---");
         customerManager.findAll().stream().forEach(System.out::println);
+
+
+        OrderManager orderManager = new OrderManager();
+        System.out.println("\n\n***************** ORDER *******************");
+        System.out.println("--- ADD ORDER ---");
+        orderManager.add(new Order(0, new Customer(1), LocalDate.parse("2025-05-05", FORMATTER), 444.44, OrderStatus.DELIVERED));
+        System.out.println("--- ALL ORDERS ---");
+        orderManager.findAll().stream().forEach(System.out::println);
+        System.out.println("--- ORDER BY ID ---");
+        System.out.println(orderManager.findById(1));
+        System.out.println("--- UPDATE ORDER ---");
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setCustomerId(2);
+        orderManager.update(1, orderDTO);
+        System.out.println("--- DELETE ORDER ---");
+        orderManager.delete(2);
+        System.out.println("--- ALL ORDERS UPDATED ---");
+        orderManager.findAll().stream().forEach(System.out::println);
     }
 }
