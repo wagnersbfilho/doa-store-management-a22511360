@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-public class CSVUtil {
+public class CSVUtilEmployee implements Persistable<Employee> {
 
     private static final String PATH = "src/pt/ipp/estg/doa/store/utils/csv/";
     private static final String CSV_EMPLOYEE_FILE_NAME = PATH + "employee.csv";
@@ -27,7 +27,7 @@ public class CSVUtil {
      *
      * @return
      */
-    public List<Employee> loadEmployeeData() {
+    public List<Employee> loadData() {
         List<Employee> emplyeeList = new ArrayList<>();
         try {
             emplyeeList = Files.lines(Path.of(CSV_EMPLOYEE_FILE_NAME))
@@ -54,7 +54,6 @@ public class CSVUtil {
                                     column[6],
                                     Double.parseDouble(column[7])
                             );
-                            default -> throw new IllegalStateException("Unexpected value: " + employeeType.name());
                         };
                     })
                     .collect(Collectors.toList());
@@ -70,7 +69,7 @@ public class CSVUtil {
      *
      * @param employees
      */
-    public void updateEmployeeData(List<Employee> employees) {
+    public void updateData(List<Employee> employees) {
 
         Path original = Path.of(CSV_EMPLOYEE_FILE_NAME);
         Path temp = Path.of(CSV_EMPLOYEE_FILE_NAME + ".tmp");

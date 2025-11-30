@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store;
 
+import pt.ipp.estg.doa.store.dto.EmployeeDTO;
 import pt.ipp.estg.doa.store.employees.*;
 
 import java.time.LocalDate;
@@ -28,14 +29,17 @@ public class Main {
         System.out.println("--- TOTAL PAYROLL ---");
         System.out.println(employeeManager.calculateTotalPayroll());
         System.out.println("--- UPDATE SALARY ---");
-        Employee employee = employeeManager.findById(1);
-        employeeManager.updateEmployeeSalary(employee, 5000.00);
+        EmployeeDTO dto = new EmployeeDTO();
+        dto.setSalary(4321.00);
+        employeeManager.update(1, dto);
         System.out.println("--- UPDATE SALES PERSON COMISSION ---");
-        Employee employee2 = employeeManager.findById(2);
-        employeeManager.updateSalesPersonComission(employee2, 10.50);
+        dto = new EmployeeDTO();
+        dto.setCommissionRate(50.50);
+        employeeManager.update(2, dto);
         System.out.println("--- UPDATE MANAGER BONUS ---");
-        Employee employee3 = employeeManager.findById(2);
-        employeeManager.updateManagerBonus(employee3, 4000.00);
+        dto = new EmployeeDTO();
+        dto.setBonus(1234.00);
+        employeeManager.update(2, dto);
         System.out.println("--- DELETE EMPLOYEE ---");
         employeeManager.delete(3);
         employeeManager.delete(4);

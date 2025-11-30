@@ -1,5 +1,7 @@
 package pt.ipp.estg.doa.store.employees;
 
+import pt.ipp.estg.doa.store.dto.EmployeeDTO;
+
 import java.time.LocalDate;
 
 public class Manager extends Employee{
@@ -19,6 +21,15 @@ public class Manager extends Employee{
                 "department='" + department + '\'' +
                 ", bonus=" + bonus +
                 '}';
+    }
+
+    public void update(EmployeeDTO dto) {
+        if (dto.department != null) {
+            this.setDepartment(dto.department);
+        }
+        if (dto.bonus != null) {
+            this.setBonus(dto.bonus);
+        }
     }
 
     public String getDepartment() {

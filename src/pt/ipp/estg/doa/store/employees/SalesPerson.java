@@ -1,5 +1,7 @@
 package pt.ipp.estg.doa.store.employees;
 
+import pt.ipp.estg.doa.store.dto.EmployeeDTO;
+
 import java.time.LocalDate;
 
 public class SalesPerson extends Employee{
@@ -20,6 +22,15 @@ public class SalesPerson extends Employee{
                 "commissionRate=" + commissionRate +
                 ", totalSales=" + totalSales +
                 '}';
+    }
+
+    public void update(EmployeeDTO dto) {
+        if (dto.commissionRate != null) {
+            this.setCommissionRate(dto.commissionRate);
+        }
+        if (dto.totalSales != null) {
+            this.setTotalSales(dto.totalSales);
+        }
     }
 
     public double getCommissionRate() {

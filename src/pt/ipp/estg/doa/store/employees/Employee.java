@@ -1,10 +1,13 @@
 package pt.ipp.estg.doa.store.employees;
 
+import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.dto.EmployeeDTO;
+import pt.ipp.estg.doa.store.utils.Entity;
+
 import java.time.LocalDate;
 
-public class Employee {
+public class Employee extends Entity {
 
-    private int id;
     private String name;
     private String nif;
     private LocalDate hireDate;
@@ -12,7 +15,7 @@ public class Employee {
     private EmployeeType type;
 
     public Employee(int id, String name, String nif, LocalDate hireDate, double salary, EmployeeType type) {
-        this.id = id;
+        setId(id);
         this.name = name;
         this.nif = nif;
         this.hireDate = hireDate;
@@ -23,7 +26,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", nif='" + nif + '\'' +
                 ", hireDate=" + hireDate +
@@ -31,12 +34,38 @@ public class Employee {
                 '}';
     }
 
-    public int getId() {
-        return id;
+    public void update(Dto dto) {
+        EmployeeDTO employeeDTO = (EmployeeDTO) dto;
+        if (validateType(employeeDTO)) {
+            if (employeeDTO.name != null) this.setName(employeeDTO.name);
+            if (employeeDTO.nif != null) this.setNif(employeeDTO.nif);
+            if (employeeDTO.hireDate != null) this.setHireDate(employeeDTO.hireDate);
+            if (employeeDTO.salary != null) this.setSalary(employeeDTO.salary);
+        }
+        if (this instanceof SalesPerson) {
+            ((SalesPerson) this).update(employeeDTO);
+        }
+        if (this instanceof Manager) {
+            ((Manager) this).update(employeeDTO);
+        }
     }
 
-    public void setId(int id) {
-        this.id = id;
+    private boolean validateType(EmployeeDTO dto) {
+
+        boolean salesFieldsUsed = dto.commissionRate != null || dto.totalSales != null;
+        boolean managerFieldsUsed = dto.department != null || dto.bonus != null;
+
+        if (salesFieldsUsed && !(this instanceof SalesPerson)) {
+            System.out.println("Este employee nao é SalesPerson, nao é possivel atualizar dados de vendas.");
+            return false;
+        }
+
+        if (managerFieldsUsed && !(this instanceof Manager)) {
+            System.out.println("Este employee nao é Manager, nao é possivel atualizar dados de manager.");
+            return false;
+        }
+
+        return true;
     }
 
     public String getName() {
