@@ -1,17 +1,13 @@
 package pt.ipp.estg.doa.store.utils;
 
-import pt.ipp.estg.doa.store.customers.Customer;
 import pt.ipp.estg.doa.store.jewelry.Jewelry;
 import pt.ipp.estg.doa.store.orders.Order;
 import pt.ipp.estg.doa.store.orders.OrderItem;
-import pt.ipp.estg.doa.store.orders.OrderStatus;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -21,7 +17,6 @@ public class CSVUtilOrderItem implements Persistable<OrderItem> {
 
     private static final String PATH = "src/pt/ipp/estg/doa/store/utils/csv/";
     private static final String CSV_ORDER_ITEM_FILE_NAME = PATH + "order_item.csv";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Carregar dados de OrderItem a partir do CSV.

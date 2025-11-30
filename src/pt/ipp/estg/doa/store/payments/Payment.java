@@ -1,18 +1,21 @@
 package pt.ipp.estg.doa.store.payments;
 
+import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.dto.PaymentDTO;
 import pt.ipp.estg.doa.store.orders.Order;
+import pt.ipp.estg.doa.store.utils.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class Payment {
+public class Payment extends Entity {
 
     private int id;
     private Order order;
     private double amount;
-    private Date paymentDate;
+    private LocalDate paymentDate;
     private PaymentMethod paymentMethod;
 
-    public Payment(int id, Order order, double amount, Date paymentDate, PaymentMethod paymentMethod) {
+    public Payment(int id, Order order, double amount, LocalDate paymentDate, PaymentMethod paymentMethod) {
         this.id = id;
         this.order = order;
         this.amount = amount;
@@ -24,11 +27,20 @@ public class Payment {
     public String toString() {
         return "Payment{" +
                 "id=" + id +
-                ", order=" + order +
+                ", order=" + (order != null ? order.getId() : null) +
                 ", amount=" + amount +
                 ", paymentDate=" + paymentDate +
                 ", paymentMethod=" + paymentMethod +
                 '}';
+    }
+
+    @Override
+    public <T extends Dto> void update(T dto) {
+        PaymentDTO paymentDTO = (PaymentDTO) dto;
+        if (paymentDTO.getOrderId() != null) this.setOrder(new Order(paymentDTO.getOrderId()));
+        if (paymentDTO.getPaymentDate() != null) this.setPaymentDate(paymentDTO.getPaymentDate());
+        if (paymentDTO.getPaymentMethod() != null) this.setPaymentMethod(paymentDTO.getPaymentMethod());
+        if (paymentDTO.getAmount() != null) this.setAmount(paymentDTO.getAmount());
     }
 
     public int getId() {
@@ -55,11 +67,11 @@ public class Payment {
         this.amount = amount;
     }
 
-    public Date getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 

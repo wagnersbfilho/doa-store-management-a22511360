@@ -6,6 +6,9 @@ import pt.ipp.estg.doa.store.dto.*;
 import pt.ipp.estg.doa.store.employees.*;
 import pt.ipp.estg.doa.store.jewelry.*;
 import pt.ipp.estg.doa.store.orders.*;
+import pt.ipp.estg.doa.store.payments.Payment;
+import pt.ipp.estg.doa.store.payments.PaymentManager;
+import pt.ipp.estg.doa.store.payments.PaymentMethod;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -133,5 +136,23 @@ public class Main {
         orderItemManager.delete(2);
         System.out.println("--- ALL ORDER ITEMS UPDATED ---");
         orderItemManager.findAll().stream().forEach(System.out::println);
+
+
+        PaymentManager paymentManager = new PaymentManager();
+        System.out.println("\n\n***************** PAYMENT *******************");
+        System.out.println("--- ADD PAYMENT ---");
+        paymentManager.add(new Payment(0, new Order(1), 6677.88, LocalDate.parse("2021-01-01", FORMATTER), PaymentMethod.CASH));
+        System.out.println("--- ALL PAYMENTS ---");
+        paymentManager.findAll().stream().forEach(System.out::println);
+        System.out.println("--- PAYMENT BY ID ---");
+        System.out.println(paymentManager.findById(1));
+        System.out.println("--- UPDATE PAYMENT ---");
+        PaymentDTO paymentDTO = new PaymentDTO();
+        paymentDTO.setAmount(1111.11);
+        paymentManager.update(1, paymentDTO);
+        System.out.println("--- DELETE PAYMENT ---");
+        paymentManager.delete(2);
+        System.out.println("--- ALLPAYMENTS UPDATED ---");
+        paymentManager.findAll().stream().forEach(System.out::println);
     }
 }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class CSVUtilJewelry implements Persistable<Jewelry> {
 
     private static final String PATH = "src/pt/ipp/estg/doa/store/utils/csv/";
-    private static final String CSV_EMPLOYEE_FILE_NAME = PATH + "jewelry.csv";
+    private static final String CSV_JEWELRY_FILE_NAME = PATH + "jewelry.csv";
 
     /**
      * Carregar dados de Employess a partir do CSV.
@@ -24,7 +24,7 @@ public class CSVUtilJewelry implements Persistable<Jewelry> {
     public List<Jewelry> loadData() {
         List<Jewelry> jewelries = new ArrayList<>();
         try {
-            jewelries = Files.lines(Path.of(CSV_EMPLOYEE_FILE_NAME))
+            jewelries = Files.lines(Path.of(CSV_JEWELRY_FILE_NAME))
                     .skip(1) // skip header
                     .map(line -> line.split(","))
                     .map(column -> {
@@ -80,8 +80,8 @@ public class CSVUtilJewelry implements Persistable<Jewelry> {
      */
     public void updateData(List<Jewelry> jewelries) {
 
-        Path original = Path.of(CSV_EMPLOYEE_FILE_NAME);
-        Path temp = Path.of(CSV_EMPLOYEE_FILE_NAME + ".tmp");
+        Path original = Path.of(CSV_JEWELRY_FILE_NAME);
+        Path temp = Path.of(CSV_JEWELRY_FILE_NAME + ".tmp");
 
         try (BufferedWriter writer = Files.newBufferedWriter(temp)) {
             // header
