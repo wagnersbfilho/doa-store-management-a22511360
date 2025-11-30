@@ -1,0 +1,4 @@
+id,jewelryType,name,material,weight,price,stock,category,additionalField
+1,NECKLACE,Golden Chain,Gold,15.5,450.00,10,LUXURY,50.0
+2,EARRING,Silver Studs,Silver,3.2,120.00,25,CASUAL,Stud
+3,RING,Diamond Ring,Platinum,8.0,2500.00,5,BRIDAL,18

@@ -25,11 +25,11 @@ public class SalesPerson extends Employee{
     }
 
     public void update(EmployeeDTO dto) {
-        if (dto.commissionRate != null) {
-            this.setCommissionRate(dto.commissionRate);
+        if (dto.getCommissionRate() != null) {
+            this.setCommissionRate(dto.getCommissionRate());
         }
-        if (dto.totalSales != null) {
-            this.setTotalSales(dto.totalSales);
+        if (dto.getTotalSales() != null) {
+            this.setTotalSales(dto.getTotalSales());
         }
     }
 

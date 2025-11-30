@@ -37,10 +37,10 @@ public class Employee extends Entity {
     public void update(Dto dto) {
         EmployeeDTO employeeDTO = (EmployeeDTO) dto;
         if (validateType(employeeDTO)) {
-            if (employeeDTO.name != null) this.setName(employeeDTO.name);
-            if (employeeDTO.nif != null) this.setNif(employeeDTO.nif);
-            if (employeeDTO.hireDate != null) this.setHireDate(employeeDTO.hireDate);
-            if (employeeDTO.salary != null) this.setSalary(employeeDTO.salary);
+            if (employeeDTO.getName() != null) this.setName(employeeDTO.getName());
+            if (employeeDTO.getNif() != null) this.setNif(employeeDTO.getNif());
+            if (employeeDTO.getHireDate() != null) this.setHireDate(employeeDTO.getHireDate());
+            if (employeeDTO.getSalary() != null) this.setSalary(employeeDTO.getSalary());
         }
         if (this instanceof SalesPerson) {
             ((SalesPerson) this).update(employeeDTO);
@@ -52,8 +52,8 @@ public class Employee extends Entity {
 
     private boolean validateType(EmployeeDTO dto) {
 
-        boolean salesFieldsUsed = dto.commissionRate != null || dto.totalSales != null;
-        boolean managerFieldsUsed = dto.department != null || dto.bonus != null;
+        boolean salesFieldsUsed = dto.getCommissionRate() != null || dto.getTotalSales() != null;
+        boolean managerFieldsUsed = dto.getDepartment() != null || dto.getBonus() != null;
 
         if (salesFieldsUsed && !(this instanceof SalesPerson)) {
             System.out.println("Este employee nao é SalesPerson, nao é possivel atualizar dados de vendas.");

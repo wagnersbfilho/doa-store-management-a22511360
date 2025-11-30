@@ -4,16 +4,16 @@ import java.time.LocalDate;
 
 public class EmployeeDTO extends Dto {
 
-    public String name;
-    public String nif;
-    public LocalDate hireDate;
-    public Double salary;
+    private String name;
+    private String nif;
+    private LocalDate hireDate;
+    private Double salary;
 
     // Campos específicos
-    public Double commissionRate;
-    public Double totalSales;
-    public String department;
-    public Double bonus;
+    private Double commissionRate;
+    private Double totalSales;
+    private String department;
+    private Double bonus;
 
     public String getName() {
         return name;

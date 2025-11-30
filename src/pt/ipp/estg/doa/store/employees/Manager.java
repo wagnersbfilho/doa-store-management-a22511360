@@ -24,11 +24,11 @@ public class Manager extends Employee{
     }
 
     public void update(EmployeeDTO dto) {
-        if (dto.department != null) {
-            this.setDepartment(dto.department);
+        if (dto.getDepartment() != null) {
+            this.setDepartment(dto.getDepartment());
         }
-        if (dto.bonus != null) {
-            this.setBonus(dto.bonus);
+        if (dto.getBonus() != null) {
+            this.setBonus(dto.getBonus());
         }
     }
 
