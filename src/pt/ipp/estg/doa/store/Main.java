@@ -1,5 +1,8 @@
 package pt.ipp.estg.doa.store;
 
+import pt.ipp.estg.doa.store.customers.Customer;
+import pt.ipp.estg.doa.store.customers.CustomerManager;
+import pt.ipp.estg.doa.store.dto.CustomerDTO;
 import pt.ipp.estg.doa.store.dto.EmployeeDTO;
 import pt.ipp.estg.doa.store.dto.JewelryDTO;
 import pt.ipp.estg.doa.store.employees.*;
@@ -51,7 +54,7 @@ public class Main {
 
 
         JewelryManager jewelryManager = new JewelryManager();
-        System.out.println("***************** JEWELRY *******************");
+        System.out.println("\n\n***************** JEWELRY *******************");
         System.out.println("--- ADD EARING ---");
         jewelryManager.add(new Earring(0, "Silver Chain", JewelryType.EARRING, "Silver",
                 12.3, 23.4, 12, Category.CASUAL, "Stud"));
@@ -77,5 +80,23 @@ public class Main {
         jewelryManager.delete(5);
         System.out.println("--- ALL JEWELRIES UPDATED ---");
         jewelryManager.findAll().stream().forEach(System.out::println);
+
+
+        CustomerManager customerManager = new CustomerManager();
+        System.out.println("\n\n***************** CUSTOMER *******************");
+        System.out.println("--- ADD CUSTOMER ---");
+        customerManager.add(new Customer(0, "Wagner Filho", "999999999", "wagner@email.com", "Lisboa", "9111111"));
+        System.out.println("--- ALL CUSTOMER ---");
+        customerManager.findAll().stream().forEach(System.out::println);
+        System.out.println("--- CUSTOMER BY ID ---");
+        System.out.println(customerManager.findById(1));
+        System.out.println("--- UPDATE CUSTOMER ---");
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setName("Ana Costa da Silga");
+        customerManager.update(1, customerDTO);
+        System.out.println("--- DELETE CUSTOMER ---");
+        customerManager.delete(2);
+        System.out.println("--- ALL CUSTOMERS UPDATED ---");
+        customerManager.findAll().stream().forEach(System.out::println);
     }
 }

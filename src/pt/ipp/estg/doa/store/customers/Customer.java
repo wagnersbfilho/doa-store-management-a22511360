@@ -1,6 +1,10 @@
 package pt.ipp.estg.doa.store.customers;
 
-public class Customer {
+import pt.ipp.estg.doa.store.dto.CustomerDTO;
+import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.utils.Entity;
+
+public class Customer extends Entity {
 
     private int id;
     private String name;
@@ -28,6 +32,17 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
+    }
+
+    @Override
+    public <T extends Dto> void update(T dto) {
+        CustomerDTO customerDTO = (CustomerDTO) dto;
+        if (customerDTO.getId() != null) this.setId(customerDTO.getId());
+        if (customerDTO.getName() != null) this.setName(customerDTO.getName());
+        if (customerDTO.getNif() != null) this.setNif(customerDTO.getNif());
+        if (customerDTO.getEmail() != null) this.setEmail(customerDTO.getEmail());
+        if (customerDTO.getAddress() != null) this.setAddress(customerDTO.getAddress());
+        if (customerDTO.getPhone() != null) this.setPhone(customerDTO.getPhone());
     }
 
     public int getId() {
