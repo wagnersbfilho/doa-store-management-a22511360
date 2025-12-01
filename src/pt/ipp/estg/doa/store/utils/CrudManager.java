@@ -9,14 +9,11 @@ public interface CrudManager<T extends Entity> {
 
     List<T> findAll();
 
-    T findById (int id);
+    T findById (int id) throws ManagerValidationException ;
 
     T add(T entity) throws ManagerValidationException;
 
     T update (int id, Dto dto) throws ManagerValidationException;
 
     void delete (int id) throws ManagerValidationException;
-
-    //boolean validate (T entity);
-
 }

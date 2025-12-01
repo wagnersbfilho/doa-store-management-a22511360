@@ -5,6 +5,7 @@ import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilCustomer;
 import pt.ipp.estg.doa.store.utils.ValidationUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerManager extends AbstractManager<Customer> {
@@ -13,11 +14,13 @@ public class CustomerManager extends AbstractManager<Customer> {
         super(new CSVUtilCustomer());
     }
 
-    public List<Customer> findByName(String name) {
+    public List<Customer> findByName(String name) throws ManagerValidationException {
         List<Customer> customers = findAll();
-        return customers.stream()
+        List<Customer> result = customers.stream()
                 .filter(customer -> customer.getName().toUpperCase().contains(name.toUpperCase()))
                 .toList();
+        if (result.isEmpty()) throw new ManagerValidationException("Any customer found for this name: " + name);
+        return result;
     }
 
     public List<Customer> findByNif(String nif) {

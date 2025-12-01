@@ -21,12 +21,12 @@ public abstract class AbstractManager <T extends Entity> implements CrudManager<
     }
 
     @Override
-    public T findById(int id) {
+    public T findById(int id) throws ManagerValidationException {
         List<T> result = findAll();
         return result.stream()
                 .filter(entity -> entity.getId() == id)
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new ManagerValidationException("ID not found: " + id));
     }
 
     @Override
@@ -56,7 +56,7 @@ public abstract class AbstractManager <T extends Entity> implements CrudManager<
                 .filter(e -> e.getId() == id)
                 .findFirst()
                 .orElseThrow(() -> new ManagerValidationException(
-                                "Entity not found for update (" + dto.getClass().getSimpleName() + "). ID: " + id));
+                                "ID not found for update (" + dto.getClass().getSimpleName() + "): " + id));
 
         entity.update(dto);
         this.repository.updateData(result);
@@ -69,7 +69,7 @@ public abstract class AbstractManager <T extends Entity> implements CrudManager<
         T entity = result.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new ManagerValidationException("Entity not found for delete. ID: " + id));
+                .orElseThrow(() -> new ManagerValidationException("ID not found for delete: " + id));
 
         result.remove(entity);
         this.repository.updateData(result);
