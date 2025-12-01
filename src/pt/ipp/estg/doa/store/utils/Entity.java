@@ -1,6 +1,7 @@
 package pt.ipp.estg.doa.store.utils;
 
 import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 
 public abstract class Entity implements Identifiable {
 
@@ -16,5 +17,5 @@ public abstract class Entity implements Identifiable {
         this.id = id;
     }
 
-    public abstract <T extends Dto> void update(T dto);
+    public abstract <T extends Dto> void update(T dto) throws ManagerValidationException;
 }

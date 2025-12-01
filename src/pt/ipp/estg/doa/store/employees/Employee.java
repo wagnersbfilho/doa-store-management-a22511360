@@ -2,6 +2,7 @@ package pt.ipp.estg.doa.store.employees;
 
 import pt.ipp.estg.doa.store.dto.Dto;
 import pt.ipp.estg.doa.store.dto.EmployeeDTO;
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.Entity;
 
 import java.time.LocalDate;
@@ -34,14 +35,13 @@ public class Employee extends Entity {
                 '}';
     }
 
-    public void update(Dto dto) {
+    public void update(Dto dto) throws ManagerValidationException {
         EmployeeDTO employeeDTO = (EmployeeDTO) dto;
-        if (validateType(employeeDTO)) {
-            if (employeeDTO.getName() != null) this.setName(employeeDTO.getName());
-            if (employeeDTO.getNif() != null) this.setNif(employeeDTO.getNif());
-            if (employeeDTO.getHireDate() != null) this.setHireDate(employeeDTO.getHireDate());
-            if (employeeDTO.getSalary() != null) this.setSalary(employeeDTO.getSalary());
-        }
+        validateType(employeeDTO);
+        if (employeeDTO.getName() != null) this.setName(employeeDTO.getName());
+        if (employeeDTO.getNif() != null) this.setNif(employeeDTO.getNif());
+        if (employeeDTO.getHireDate() != null) this.setHireDate(employeeDTO.getHireDate());
+        if (employeeDTO.getSalary() != null) this.setSalary(employeeDTO.getSalary());
         if (this instanceof SalesPerson) {
             ((SalesPerson) this).update(employeeDTO);
         }
@@ -50,22 +50,18 @@ public class Employee extends Entity {
         }
     }
 
-    private boolean validateType(EmployeeDTO dto) {
+    private void validateType(EmployeeDTO dto) throws ManagerValidationException {
 
         boolean salesFieldsUsed = dto.getCommissionRate() != null || dto.getTotalSales() != null;
         boolean managerFieldsUsed = dto.getDepartment() != null || dto.getBonus() != null;
 
         if (salesFieldsUsed && !(this instanceof SalesPerson)) {
-            System.out.println("Este employee nao é SalesPerson, nao é possivel atualizar dados de vendas.");
-            return false;
+            throw new ManagerValidationException("The employee is not SalesPerson and cannot be updated.");
         }
 
         if (managerFieldsUsed && !(this instanceof Manager)) {
-            System.out.println("Este employee nao é Manager, nao é possivel atualizar dados de manager.");
-            return false;
+            throw new ManagerValidationException("The employee is not Manager and cannot be updated.");
         }
-
-        return true;
     }
 
     public String getName() {

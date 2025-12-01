@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store.jewelry;
 
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilJewelry;
 
@@ -50,35 +51,43 @@ public class JewelryManager extends AbstractManager<Jewelry> {
     }
 
     @Override
-    public boolean validate(Jewelry jewelry) {
+    public void validate(Jewelry jewelry) throws ManagerValidationException {
         if (jewelry.getName() == null || jewelry.getName().isEmpty()) {
-            System.out.println("Name is required");
-            return false;
+            throw new ManagerValidationException("Name is required");
         }
         if (jewelry.getType() == null) {
-            System.out.println("Type is required");
-            return false;
+            throw new ManagerValidationException("Type is required");
         }
         if (jewelry.getCategory() == null) {
-            System.out.println("Category is required");
-            return false;
+            throw new ManagerValidationException("Category is required");
         }
         if (jewelry.getMaterial() == null || jewelry.getMaterial().isEmpty()) {
-            System.out.println("Material is required");
-            return false;
+            throw new ManagerValidationException("Material is required");
         }
         if (jewelry.getWeight() <= 0) {
-            System.out.println("Weight is required");
-            return false;
+            throw new ManagerValidationException("Weight is required");
         }
         if (jewelry.getPrice() <= 0) {
-            System.out.println("Price is required");
-            return false;
+            throw new ManagerValidationException("Price is required");
         }
         if (jewelry.getStock() < 0) {
-            System.out.println("Stock is required");
-            return false;
+            throw new ManagerValidationException("Stock is required");
         }
-        return true;
+        if (jewelry instanceof Earring) {
+            if (((Earring) jewelry).getClaspType() == null) {
+                throw new ManagerValidationException("Earring ClaspType is required");
+            }
+        }
+        if (jewelry instanceof Necklace) {
+            if (((Necklace) jewelry).getLength() <= 0) {
+                throw new ManagerValidationException("Necklace length is required");
+            }
+        }
+        if (jewelry instanceof Ring) {
+            int size = ((Ring) jewelry).getSize();
+            if (size <= 10 || size >= 30) {
+                throw new ManagerValidationException("Ring size must be between 10 and 30 (European standard)");
+            }
+        }
     }
 }

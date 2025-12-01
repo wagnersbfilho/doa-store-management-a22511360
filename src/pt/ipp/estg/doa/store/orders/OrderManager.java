@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store.orders;
 
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilOrder;
 
@@ -40,23 +41,18 @@ public class OrderManager extends AbstractManager<Order> {
     }
 
     @Override
-    public boolean validate(Order order) {
+    public void validate(Order order) throws ManagerValidationException {
         if (order.getCustomer() == null  || order.getCustomer().getId() == 0) {
-            System.out.println("Customer is required");
-            return false;
+            throw new ManagerValidationException("Customer is required");
         }
         if (order.getOrderDate() == null) {
-            System.out.println("Order Date is required");
-            return false;
+            throw new ManagerValidationException("Order Date is required");
         }
         if (order.getStatus() == null) {
-            System.out.println("Status is required");
-            return false;
+            throw new ManagerValidationException("Status is required");
         }
         if (order.getJewelryItems() == null || order.getJewelryItems().isEmpty()) {
-            System.out.println("Order Items (Jewelry) is required");
-            return false;
+            throw new ManagerValidationException("Order Items (Jewelry) is required");
         }
-        return true;
     }
 }

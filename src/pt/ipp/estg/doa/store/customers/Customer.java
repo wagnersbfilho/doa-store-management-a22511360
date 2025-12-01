@@ -24,7 +24,7 @@ public class Customer extends Entity {
         this.phone = phone;
     }
 
-    public Customer(int id, String name, String nif, String email, String address, String phone) {
+    public Customer(int id, String name, String nif, String email, String phone, String address) {
         setId(id);
         this.name = name;
         this.nif = nif;

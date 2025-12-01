@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store.employees;
 
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilEmployee;
 import pt.ipp.estg.doa.store.utils.ValidationUtil;
@@ -32,33 +33,31 @@ public class EmployeeManager extends AbstractManager<Employee> {
         return employees.stream().mapToDouble(Employee::getSalary).sum();
     }
 
-    public boolean validate(Employee employee) {
+    public void validate(Employee employee) throws ManagerValidationException {
         if (employee.getName() == null || employee.getName().isEmpty()) {
-            System.out.println("Name is required");
-            return false;
+            throw new ManagerValidationException("Name is required");
         }
         if (employee.getNif() == null || employee.getNif().isEmpty()) {
-            System.out.println("NIF is required");
-            return false;
+            throw new ManagerValidationException("NIF is required");
         }
         if (employee.getHireDate() == null) {
-            System.out.println("Hire Date is required");
-            return false;
+            throw new ManagerValidationException("Hire Date is required");
         }
         if (employee.getSalary() <= 0) {
-            System.out.println("Salary is required");
-            return false;
+            throw new ManagerValidationException("Salary is required");
         }
         if (!employee.getNif().matches(ValidationUtil.FORMAT_9_DIGITS)) {
-            System.out.println("NIF is not valid");
-            return false;
+            throw new ManagerValidationException("NIF is not valid");
         }
         if (employee.getHireDate().isAfter(LocalDate.now())){
-            System.out.println("Hire Date cannot be in the future");
-            return false;
+            throw new ManagerValidationException("Hire Date cannot be in the future");
         }
-
-        return true;
+        if (employee instanceof SalesPerson) {
+            double comission = ((SalesPerson) employee).getCommissionRate();
+            if (comission <= 0 || comission > 100) {
+                throw new ManagerValidationException("Commission ate must be between 0 and 100 (percentage)");
+            }
+        }
     }
 
 }

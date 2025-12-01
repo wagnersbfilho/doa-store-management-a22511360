@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store.payments;
 
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilPayment;
 
@@ -40,19 +41,15 @@ public class PaymentManager extends AbstractManager<Payment> {
     }
 
     @Override
-    public boolean validate(Payment payment) {
+    public void validate(Payment payment) throws ManagerValidationException {
         if (payment.getOrder() == null  || payment.getOrder().getId() == 0) {
-            System.out.println("Order is required");
-            return false;
+            throw new ManagerValidationException("Order is required");
         }
         if (payment.getAmount() <= 0) {
-            System.out.println("Amount is required");
-            return false;
+            throw new ManagerValidationException("Amount is required");
         }
         if (payment.getPaymentMethod() == null) {
-            System.out.println("Payment Method is required");
-            return false;
+            throw new ManagerValidationException("Payment Method is required");
         }
-        return true;
     }
 }

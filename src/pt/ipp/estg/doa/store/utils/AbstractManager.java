@@ -1,6 +1,7 @@
 package pt.ipp.estg.doa.store.utils;
 
 import pt.ipp.estg.doa.store.dto.Dto;
+import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,7 +30,7 @@ public abstract class AbstractManager <T extends Entity> implements CrudManager<
     }
 
     @Override
-    public T add(T entity) {
+    public T add(T entity) throws ManagerValidationException {
         List<T> result = findAll();
 
         // nextId
@@ -39,52 +40,38 @@ public abstract class AbstractManager <T extends Entity> implements CrudManager<
                 () -> entity.setId(1)
         );
 
-        if (validate(entity)) {
-            result.add(entity);
-            this.repository.updateData(result);
-            return entity;
-        }
-
-        return null;
+        validate(entity);
+        result.add(entity);
+        this.repository.updateData(result);
+        return entity;
     }
 
-    public abstract boolean validate(T entity);
+    public abstract void validate(T entity) throws ManagerValidationException;
 
     @Override
-    public T update(int id, Dto dto) {
+    public T update(int id, Dto dto) throws ManagerValidationException {
         List<T> result = findAll();
 
         T entity = result.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("Registro nao encontrado: " + id);
-                    return null;
-                });
+                .orElseThrow(() -> new ManagerValidationException(
+                                "Entity not found for update (" + dto.getClass().getSimpleName() + "). ID: " + id));
 
-        if (entity != null) {
-            entity.update(dto);
-            this.repository.updateData(result);
-            return entity;
-        }
-
-        return null;
+        entity.update(dto);
+        this.repository.updateData(result);
+        return entity;
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) throws ManagerValidationException {
         List<T> result = findAll();
         T entity = result.stream()
                 .filter(e -> e.getId() == id)
                 .findFirst()
-                .orElseGet(() -> {
-                    System.out.println("Regsitro nao encontrado: " + id);
-                    return null;
-                });
+                .orElseThrow(() -> new ManagerValidationException("Entity not found for delete. ID: " + id));
 
-        if (entity != null) {
-            result.remove(entity);
-            this.repository.updateData(result);
-        }
+        result.remove(entity);
+        this.repository.updateData(result);
     }
 }
