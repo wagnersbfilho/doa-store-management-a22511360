@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -19,7 +18,6 @@ public class CSVUtilOrder implements Persistable<Order> {
 
     private static final String PATH = "src/pt/ipp/estg/doa/store/utils/csv/";
     private static final String CSV_ORDER_FILE_NAME = PATH + "order.csv";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Carregar dados de Order a partir do CSV.
@@ -35,7 +33,7 @@ public class CSVUtilOrder implements Persistable<Order> {
                     .map(column -> {
                         return new Order(Integer.parseInt(column[0]),
                                 new Customer(Integer.parseInt(column[1])),
-                                LocalDate.parse(column[2], FORMATTER),
+                                LocalDate.parse(column[2], ValidationUtil.FORMAT_DATE),
                                 Double.parseDouble(column[3]),
                                 OrderStatus.valueOf(column[4]));
                     })
@@ -66,7 +64,7 @@ public class CSVUtilOrder implements Persistable<Order> {
                 writer.write(String.format(Locale.US, "%d,%d,%s,%.2f,%s",
                     order.getId(),
                         order.getCustomer().getId(),
-                        order.getOrderDate().format(FORMATTER),
+                        order.getOrderDate().format(ValidationUtil.FORMAT_DATE),
                         order.getTotalAmount(),
                         order.getStatus().name()
                 ));

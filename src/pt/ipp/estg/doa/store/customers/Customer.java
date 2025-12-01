@@ -16,6 +16,14 @@ public class Customer extends Entity {
         setId(id);
     }
 
+    public Customer(String name, String nif, String email, String address, String phone) {
+        this.name = name;
+        this.nif = nif;
+        this.email = email;
+        this.address = address;
+        this.phone = phone;
+    }
+
     public Customer(int id, String name, String nif, String email, String address, String phone) {
         setId(id);
         this.name = name;

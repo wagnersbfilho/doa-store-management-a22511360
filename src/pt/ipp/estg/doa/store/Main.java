@@ -3,29 +3,36 @@ package pt.ipp.estg.doa.store;
 import pt.ipp.estg.doa.store.customers.Customer;
 import pt.ipp.estg.doa.store.customers.CustomerManager;
 import pt.ipp.estg.doa.store.dto.*;
-import pt.ipp.estg.doa.store.employees.*;
+import pt.ipp.estg.doa.store.employees.EmployeeManager;
+import pt.ipp.estg.doa.store.employees.EmployeeType;
+import pt.ipp.estg.doa.store.employees.Manager;
+import pt.ipp.estg.doa.store.employees.SalesPerson;
 import pt.ipp.estg.doa.store.jewelry.*;
-import pt.ipp.estg.doa.store.orders.*;
+import pt.ipp.estg.doa.store.orders.Order;
+import pt.ipp.estg.doa.store.orders.OrderItem;
+import pt.ipp.estg.doa.store.orders.OrderItemManager;
+import pt.ipp.estg.doa.store.orders.OrderManager;
 import pt.ipp.estg.doa.store.payments.Payment;
 import pt.ipp.estg.doa.store.payments.PaymentManager;
 import pt.ipp.estg.doa.store.payments.PaymentMethod;
+import pt.ipp.estg.doa.store.utils.ValidationUtil;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         EmployeeManager employeeManager = new EmployeeManager();
         System.out.println("***************** EMPLOYEE *******************");
         System.out.println("--- ADD SALES PERSON ---");
         employeeManager.add(new SalesPerson(0, "Paulo Santos", "123456789",
-                LocalDate.parse("2024-01-01", FORMATTER), 1500.00, 6.0, 10000.00));
+                LocalDate.parse("2024-01-01", ValidationUtil.FORMAT_DATE), 1500.00, 6.0, 10000.00));
         System.out.println("--- ADD MANAGER ---");
         employeeManager.add(new Manager(0, "Daniel Silva", "223344556",
-                LocalDate.parse("2022-02-02", FORMATTER), 1500.00, "Sales", 3000.00));
+                LocalDate.parse("2022-02-02", ValidationUtil.FORMAT_DATE), 1500.00, "Sales", 3000.00));
         System.out.println("--- ALL EMPLOYEES ---");
         employeeManager.findAll().stream().forEach(System.out::println);
         System.out.println("--- EMPLOYEES BY ID ---");
@@ -58,7 +65,7 @@ public class Main {
         JewelryManager jewelryManager = new JewelryManager();
         System.out.println("\n\n***************** JEWELRY *******************");
         System.out.println("--- ADD EARING ---");
-        jewelryManager.add(new Earring(0, "Silver Chain", JewelryType.EARRING, "Silver",
+        Jewelry ring = jewelryManager.add(new Earring(0, "Silver Chain", JewelryType.EARRING, "Silver",
                 12.3, 23.4, 12, Category.CASUAL, "Stud"));
         System.out.println("--- ADD NECKLANE ---");
         jewelryManager.add(new Necklace(0, "Silver Chain", JewelryType.NECKLACE, "Silver",
@@ -87,7 +94,7 @@ public class Main {
         CustomerManager customerManager = new CustomerManager();
         System.out.println("\n\n***************** CUSTOMER *******************");
         System.out.println("--- ADD CUSTOMER ---");
-        customerManager.add(new Customer(0, "Wagner Filho", "999999999", "wagner@email.com", "Lisboa", "9111111"));
+        customerManager.add(new Customer("Wagner Filho", "999999999", "wagner@email.com", "Lisboa", "9111111"));
         System.out.println("--- ALL CUSTOMER ---");
         customerManager.findAll().stream().forEach(System.out::println);
         System.out.println("--- CUSTOMER BY ID ---");
@@ -102,28 +109,10 @@ public class Main {
         customerManager.findAll().stream().forEach(System.out::println);
 
 
-        OrderManager orderManager = new OrderManager();
-        System.out.println("\n\n***************** ORDER *******************");
-        System.out.println("--- ADD ORDER ---");
-        orderManager.add(new Order(0, new Customer(1), LocalDate.parse("2025-05-05", FORMATTER), 444.44, OrderStatus.DELIVERED));
-        System.out.println("--- ALL ORDERS ---");
-        orderManager.findAll().stream().forEach(System.out::println);
-        System.out.println("--- ORDER BY ID ---");
-        System.out.println(orderManager.findById(1));
-        System.out.println("--- UPDATE ORDER ---");
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setCustomerId(2);
-        orderManager.update(1, orderDTO);
-        System.out.println("--- DELETE ORDER ---");
-        orderManager.delete(2);
-        System.out.println("--- ALL ORDERS UPDATED ---");
-        orderManager.findAll().stream().forEach(System.out::println);
-
-
         OrderItemManager orderItemManager = new OrderItemManager();
         System.out.println("\n\n***************** ORDER ITEM *******************");
         System.out.println("--- ADD ORDER ITEM ---");
-        orderItemManager.add(new OrderItem(0, new Order(1), new Jewelry(1), 1000, 5555.55));
+        OrderItem orderItem = orderItemManager.add(new OrderItem(ring, 1000));
         System.out.println("--- ALL ORDER ITEMS ---");
         orderItemManager.findAll().stream().forEach(System.out::println);
         System.out.println("--- ORDER ITEM BY ID ---");
@@ -138,10 +127,30 @@ public class Main {
         orderItemManager.findAll().stream().forEach(System.out::println);
 
 
+        OrderManager orderManager = new OrderManager();
+        System.out.println("\n\n***************** ORDER *******************");
+        System.out.println("--- ADD ORDER ---");
+        List<OrderItem> items = new ArrayList<>();
+        items.add(orderItem);
+        Order order = orderManager.add(new Order(new Customer(1), items));
+        System.out.println("--- ALL ORDERS ---");
+        orderManager.findAll().stream().forEach(System.out::println);
+        System.out.println("--- ORDER BY ID ---");
+        System.out.println(orderManager.findById(1));
+        System.out.println("--- UPDATE ORDER ---");
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setCustomerId(2);
+        orderManager.update(1, orderDTO);
+        System.out.println("--- DELETE ORDER ---");
+        orderManager.delete(2);
+        System.out.println("--- ALL ORDERS UPDATED ---");
+        orderManager.findAll().stream().forEach(System.out::println);
+
+
         PaymentManager paymentManager = new PaymentManager();
         System.out.println("\n\n***************** PAYMENT *******************");
         System.out.println("--- ADD PAYMENT ---");
-        paymentManager.add(new Payment(0, new Order(1), 6677.88, LocalDate.parse("2021-01-01", FORMATTER), PaymentMethod.CASH));
+        paymentManager.add(new Payment(order, 6677.88, PaymentMethod.CASH));
         System.out.println("--- ALL PAYMENTS ---");
         paymentManager.findAll().stream().forEach(System.out::println);
         System.out.println("--- PAYMENT BY ID ---");

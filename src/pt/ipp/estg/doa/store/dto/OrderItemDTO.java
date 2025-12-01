@@ -3,7 +3,6 @@ package pt.ipp.estg.doa.store.dto;
 public class OrderItemDTO extends Dto{
 
     private Integer id;
-    private Integer orderId;
     private Integer jewelryId;
     private Integer quantity;
     private Double subtotal;
@@ -14,14 +13,6 @@ public class OrderItemDTO extends Dto{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public Integer getJewelryId() {

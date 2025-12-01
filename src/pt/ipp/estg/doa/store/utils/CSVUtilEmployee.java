@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -20,7 +19,6 @@ public class CSVUtilEmployee implements Persistable<Employee> {
 
     private static final String PATH = "src/pt/ipp/estg/doa/store/utils/csv/";
     private static final String CSV_EMPLOYEE_FILE_NAME = PATH + "employee.csv";
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * Carregar dados de Employess a partir do CSV.
@@ -40,7 +38,7 @@ public class CSVUtilEmployee implements Persistable<Employee> {
                                     Integer.parseInt(column[0]),
                                     column[2],
                                     column[3],
-                                    LocalDate.parse(column[4], FORMATTER),
+                                    LocalDate.parse(column[4], ValidationUtil.FORMAT_DATE),
                                     Double.parseDouble(column[5]),
                                     Double.parseDouble(column[6]),
                                     Double.parseDouble(column[7])
@@ -49,7 +47,7 @@ public class CSVUtilEmployee implements Persistable<Employee> {
                                     Integer.parseInt(column[0]),
                                     column[2],
                                     column[3],
-                                    LocalDate.parse(column[4], FORMATTER),
+                                    LocalDate.parse(column[4], ValidationUtil.FORMAT_DATE),
                                     Double.parseDouble(column[5]),
                                     column[6],
                                     Double.parseDouble(column[7])
@@ -86,7 +84,7 @@ public class CSVUtilEmployee implements Persistable<Employee> {
                             EmployeeType.SALESPERSON.name(),
                             employee.getName(),
                             employee.getNif(),
-                            employee.getHireDate().format(FORMATTER),
+                            employee.getHireDate().format(ValidationUtil.FORMAT_DATE),
                             employee.getSalary(),
                             ((SalesPerson) employee).getCommissionRate(),
                             ((SalesPerson) employee).getTotalSales()
@@ -98,7 +96,7 @@ public class CSVUtilEmployee implements Persistable<Employee> {
                             EmployeeType.MANAGER.name(),
                             employee.getName(),
                             employee.getNif(),
-                            employee.getHireDate().format(FORMATTER),
+                            employee.getHireDate().format(ValidationUtil.FORMAT_DATE),
                             employee.getSalary(),
                             ((Manager) employee).getDepartment(),
                             ((Manager) employee).getBonus()

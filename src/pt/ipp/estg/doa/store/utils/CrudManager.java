@@ -10,10 +10,12 @@ public interface CrudManager<T extends Entity> {
 
     T findById (int id);
 
-    void add(T entity);
+    T add(T entity);
 
-    void update (int id, Dto dto);
+    T update (int id, Dto dto);
 
     void delete (int id);
+
+    //boolean validate (T entity);
 
 }

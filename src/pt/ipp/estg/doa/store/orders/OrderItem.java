@@ -8,14 +8,18 @@ import pt.ipp.estg.doa.store.utils.Entity;
 public class OrderItem extends Entity {
 
     private int id;
-    private Order order;
     private Jewelry jewelry;
     private int quantity;
     private double subtotal;
 
-    public OrderItem(int id, Order order, Jewelry jewelry, int quantity, double subtotal) {
+    public OrderItem(Jewelry jewelry, int quantity) {
+        this.jewelry = jewelry;
+        this.quantity = quantity;
+        this.subtotal = jewelry.getPrice() * quantity;
+    }
+
+    public OrderItem(int id, Jewelry jewelry, int quantity, double subtotal) {
         this.id = id;
-        this.order = order;
         this.jewelry = jewelry;
         this.quantity = quantity;
         this.subtotal = subtotal;
@@ -25,7 +29,6 @@ public class OrderItem extends Entity {
     public String toString() {
         return "OrderItem{" +
                 "id=" + id +
-                ", order=" + (order != null ? order.getId() : null) +
                 ", jewelry=" + (jewelry !=  null ? jewelry.getId() : null) +
                 ", quantity=" + quantity +
                 ", subtotal=" + subtotal +
@@ -35,7 +38,6 @@ public class OrderItem extends Entity {
     @Override
     public <T extends Dto> void update(T dto) {
         OrderItemDTO  orderItemDTO = (OrderItemDTO) dto;
-        if(orderItemDTO.getOrderId() != null) this.setOrder(new Order(orderItemDTO.getId()));
         if(orderItemDTO.getJewelryId() != null) this.setJewelry(new Jewelry(orderItemDTO.getJewelryId()));
         if(orderItemDTO.getQuantity() != null) this.setQuantity(orderItemDTO.getQuantity());
         if(orderItemDTO.getSubtotal() != null) this.setSubtotal(orderItemDTO.getSubtotal());
@@ -47,14 +49,6 @@ public class OrderItem extends Entity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public Jewelry getJewelry() {

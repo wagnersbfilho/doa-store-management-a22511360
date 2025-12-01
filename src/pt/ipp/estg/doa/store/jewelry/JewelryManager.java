@@ -48,4 +48,37 @@ public class JewelryManager extends AbstractManager<Jewelry> {
     public boolean isLowStock(String name) {
         return findByName(name).size() < STOCK_THRESHOLD;
     }
+
+    @Override
+    public boolean validate(Jewelry jewelry) {
+        if (jewelry.getName() == null || jewelry.getName().isEmpty()) {
+            System.out.println("Name is required");
+            return false;
+        }
+        if (jewelry.getType() == null) {
+            System.out.println("Type is required");
+            return false;
+        }
+        if (jewelry.getCategory() == null) {
+            System.out.println("Category is required");
+            return false;
+        }
+        if (jewelry.getMaterial() == null || jewelry.getMaterial().isEmpty()) {
+            System.out.println("Material is required");
+            return false;
+        }
+        if (jewelry.getWeight() <= 0) {
+            System.out.println("Weight is required");
+            return false;
+        }
+        if (jewelry.getPrice() <= 0) {
+            System.out.println("Price is required");
+            return false;
+        }
+        if (jewelry.getStock() < 0) {
+            System.out.println("Stock is required");
+            return false;
+        }
+        return true;
+    }
 }

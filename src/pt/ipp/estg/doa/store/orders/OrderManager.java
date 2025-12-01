@@ -38,4 +38,25 @@ public class OrderManager extends AbstractManager<Order> {
         List<Order> orders = findAll();
         return orders.stream().mapToDouble(Order::getTotalAmount).sum();
     }
+
+    @Override
+    public boolean validate(Order order) {
+        if (order.getCustomer() == null  || order.getCustomer().getId() == 0) {
+            System.out.println("Customer is required");
+            return false;
+        }
+        if (order.getOrderDate() == null) {
+            System.out.println("Order Date is required");
+            return false;
+        }
+        if (order.getStatus() == null) {
+            System.out.println("Status is required");
+            return false;
+        }
+        if (order.getJewelryItems() == null || order.getJewelryItems().isEmpty()) {
+            System.out.println("Order Items (Jewelry) is required");
+            return false;
+        }
+        return true;
+    }
 }

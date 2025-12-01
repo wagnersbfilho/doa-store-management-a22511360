@@ -38,4 +38,21 @@ public class PaymentManager extends AbstractManager<Payment> {
         List<Payment> payments = findAll();
         return payments.stream().mapToDouble(Payment::getAmount).sum();
     }
+
+    @Override
+    public boolean validate(Payment payment) {
+        if (payment.getOrder() == null  || payment.getOrder().getId() == 0) {
+            System.out.println("Order is required");
+            return false;
+        }
+        if (payment.getAmount() <= 0) {
+            System.out.println("Amount is required");
+            return false;
+        }
+        if (payment.getPaymentMethod() == null) {
+            System.out.println("Payment Method is required");
+            return false;
+        }
+        return true;
+    }
 }

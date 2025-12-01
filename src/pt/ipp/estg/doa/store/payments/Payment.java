@@ -14,6 +14,13 @@ public class Payment extends Entity {
     private LocalDate paymentDate;
     private PaymentMethod paymentMethod;
 
+    public Payment(Order order, double amount, PaymentMethod paymentMethod) {
+        this.order = order;
+        this.amount = amount;
+        this.paymentDate = LocalDate.now();
+        this.paymentMethod = paymentMethod;
+    }
+
     public Payment(int id, Order order, double amount, LocalDate paymentDate, PaymentMethod paymentMethod) {
         setId(id);
         this.order = order;

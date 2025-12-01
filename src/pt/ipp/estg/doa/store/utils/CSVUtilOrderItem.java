@@ -32,10 +32,9 @@ public class CSVUtilOrderItem implements Persistable<OrderItem> {
                     .map(column ->
                         new OrderItem(
                             Integer.parseInt(column[0]),
-                            new Order(Integer.parseInt(column[1])),
-                            new Jewelry(Integer.parseInt(column[2])),
-                            Integer.parseInt(column[3]),
-                            Double.parseDouble(column[4])))
+                            new Jewelry(Integer.parseInt(column[1])),
+                            Integer.parseInt(column[2]),
+                            Double.parseDouble(column[3])))
                     .collect(Collectors.toList());
 
         } catch (IOException e){
@@ -56,13 +55,12 @@ public class CSVUtilOrderItem implements Persistable<OrderItem> {
 
         try (BufferedWriter writer = Files.newBufferedWriter(temp)) {
             // header
-            writer.write("id,orderId,jewelryId,quantity,subtotal");
+            writer.write("id,jewelryId,quantity,subtotal");
             writer.newLine();
 
             for (OrderItem orderItem: orders) {
-                writer.write(String.format(Locale.US, "%d,%d,%d,%d,%.2f",
+                writer.write(String.format(Locale.US, "%d,%d,%d,%.2f",
                     orderItem.getId(),
-                        orderItem.getOrder().getId(),
                         orderItem.getJewelry().getId(),
                         orderItem.getQuantity(),
                         orderItem.getSubtotal()

@@ -3,9 +3,11 @@ package pt.ipp.estg.doa.store.orders;
 import pt.ipp.estg.doa.store.customers.Customer;
 import pt.ipp.estg.doa.store.dto.Dto;
 import pt.ipp.estg.doa.store.dto.OrderDTO;
+import pt.ipp.estg.doa.store.jewelry.Jewelry;
 import pt.ipp.estg.doa.store.utils.Entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order extends Entity {
@@ -15,6 +17,14 @@ public class Order extends Entity {
     private List<OrderItem> jewelryItems;
     private double totalAmount;
     private OrderStatus status;
+
+    public Order(Customer customer, List<OrderItem> jewelryItems) {
+        this.customer = customer;
+        this.orderDate = LocalDate.now();
+        this.jewelryItems = jewelryItems != null ? jewelryItems : new ArrayList<>();
+        this.totalAmount = this.jewelryItems.stream().mapToDouble(OrderItem::getSubtotal).sum();
+        this.status = OrderStatus.PENDING;
+    }
 
     public Order(int id, Customer customer, LocalDate orderDate, double totalAmount, OrderStatus status) {
         setId(id);

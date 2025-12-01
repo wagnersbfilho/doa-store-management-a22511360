@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class AbstractManager <T extends Entity> implements CrudManager<T> {
+public abstract class AbstractManager <T extends Entity> implements CrudManager<T> {
 
     Persistable<T> repository;
 
@@ -29,7 +29,7 @@ public class AbstractManager <T extends Entity> implements CrudManager<T> {
     }
 
     @Override
-    public void add(T entity) {
+    public T add(T entity) {
         List<T> result = findAll();
 
         // nextId
@@ -39,12 +39,19 @@ public class AbstractManager <T extends Entity> implements CrudManager<T> {
                 () -> entity.setId(1)
         );
 
-        result.add(entity);
-        this.repository.updateData(result);
+        if (validate(entity)) {
+            result.add(entity);
+            this.repository.updateData(result);
+            return entity;
+        }
+
+        return null;
     }
 
+    public abstract boolean validate(T entity);
+
     @Override
-    public void update(int id, Dto dto) {
+    public T update(int id, Dto dto) {
         List<T> result = findAll();
 
         T entity = result.stream()
@@ -58,7 +65,10 @@ public class AbstractManager <T extends Entity> implements CrudManager<T> {
         if (entity != null) {
             entity.update(dto);
             this.repository.updateData(result);
+            return entity;
         }
+
+        return null;
     }
 
     @Override
