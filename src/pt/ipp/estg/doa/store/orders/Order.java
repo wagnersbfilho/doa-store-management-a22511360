@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Order extends Entity {
 
-    private int id;
     private Customer customer;
     private LocalDate orderDate;
     private List<OrderItem> jewelryItems;
@@ -18,7 +17,7 @@ public class Order extends Entity {
     private OrderStatus status;
 
     public Order(int id, Customer customer, LocalDate orderDate, double totalAmount, OrderStatus status) {
-        this.id = id;
+        setId(id);
         this.customer = customer;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
@@ -26,13 +25,13 @@ public class Order extends Entity {
     }
 
     public Order(int id) {
-        this.id = id;
+        setId(id);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", customer=" + (customer != null ? customer.getId() : null) +
                 ", orderDate=" + orderDate +
                 ", totalAmount=" + totalAmount +
@@ -47,14 +46,6 @@ public class Order extends Entity {
         if (orderDTO.getOrderDate() != null) this.setOrderDate(orderDTO.getOrderDate());
         if (orderDTO.getTotalAmount() != null) this.setTotalAmount(orderDTO.getTotalAmount());
         if (orderDTO.getStatus() != null) this.setStatus(orderDTO.getStatus());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Customer getCustomer() {

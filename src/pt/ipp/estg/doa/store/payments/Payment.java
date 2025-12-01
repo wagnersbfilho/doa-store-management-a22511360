@@ -9,14 +9,13 @@ import java.time.LocalDate;
 
 public class Payment extends Entity {
 
-    private int id;
     private Order order;
     private double amount;
     private LocalDate paymentDate;
     private PaymentMethod paymentMethod;
 
     public Payment(int id, Order order, double amount, LocalDate paymentDate, PaymentMethod paymentMethod) {
-        this.id = id;
+        setId(id);
         this.order = order;
         this.amount = amount;
         this.paymentDate = paymentDate;
@@ -26,7 +25,7 @@ public class Payment extends Entity {
     @Override
     public String toString() {
         return "Payment{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", order=" + (order != null ? order.getId() : null) +
                 ", amount=" + amount +
                 ", paymentDate=" + paymentDate +
@@ -41,14 +40,6 @@ public class Payment extends Entity {
         if (paymentDTO.getPaymentDate() != null) this.setPaymentDate(paymentDTO.getPaymentDate());
         if (paymentDTO.getPaymentMethod() != null) this.setPaymentMethod(paymentDTO.getPaymentMethod());
         if (paymentDTO.getAmount() != null) this.setAmount(paymentDTO.getAmount());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Order getOrder() {

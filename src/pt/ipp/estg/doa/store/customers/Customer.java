@@ -6,7 +6,6 @@ import pt.ipp.estg.doa.store.utils.Entity;
 
 public class Customer extends Entity {
 
-    private int id;
     private String name;
     private String nif;
     private String email;
@@ -14,11 +13,11 @@ public class Customer extends Entity {
     private String phone;
 
     public Customer(int id) {
-        this.id = id;
+        setId(id);
     }
 
     public Customer(int id, String name, String nif, String email, String address, String phone) {
-        this.id = id;
+        setId(id);
         this.name = name;
         this.nif = nif;
         this.email = email;
@@ -29,7 +28,7 @@ public class Customer extends Entity {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", nif='" + nif + '\'' +
                 ", email='" + email + '\'' +
@@ -47,14 +46,6 @@ public class Customer extends Entity {
         if (customerDTO.getEmail() != null) this.setEmail(customerDTO.getEmail());
         if (customerDTO.getAddress() != null) this.setAddress(customerDTO.getAddress());
         if (customerDTO.getPhone() != null) this.setPhone(customerDTO.getPhone());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

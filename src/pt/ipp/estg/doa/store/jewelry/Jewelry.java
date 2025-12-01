@@ -6,7 +6,6 @@ import pt.ipp.estg.doa.store.utils.Entity;
 
 public class Jewelry extends Entity {
 
-    private int id;
     private String name;
     private JewelryType type;
     private String material;
@@ -16,7 +15,7 @@ public class Jewelry extends Entity {
     private Category category;
 
     public Jewelry(int id, String name, JewelryType type, String material, double weight, double price, int stock, Category category) {
-        this.id = id;
+        setId(id);
         this.name = name;
         this.type = type;
         this.material = material;
@@ -27,13 +26,13 @@ public class Jewelry extends Entity {
     }
 
     public Jewelry(int id) {
-        this.id = id;
+        setId(id);
     }
 
     @Override
     public String toString() {
         return "Jewelry{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", material='" + material + '\'' +
@@ -88,14 +87,6 @@ public class Jewelry extends Entity {
         }
 
         return true;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

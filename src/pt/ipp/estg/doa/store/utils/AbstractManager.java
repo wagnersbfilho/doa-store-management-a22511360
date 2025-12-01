@@ -2,7 +2,9 @@ package pt.ipp.estg.doa.store.utils;
 
 import pt.ipp.estg.doa.store.dto.Dto;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 public class AbstractManager <T extends Entity> implements CrudManager<T> {
 
@@ -29,7 +31,14 @@ public class AbstractManager <T extends Entity> implements CrudManager<T> {
     @Override
     public void add(T entity) {
         List<T> result = findAll();
-        entity.setId(result.size() +1);
+
+        // nextId
+        Optional<T> nextId = result.stream().max(Comparator.comparing(Entity::getId));
+        nextId.ifPresentOrElse(
+                maxId -> entity.setId(maxId.getId() + 1),
+                () -> entity.setId(1)
+        );
+
         result.add(entity);
         this.repository.updateData(result);
     }
