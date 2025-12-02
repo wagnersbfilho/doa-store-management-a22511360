@@ -10,6 +10,15 @@
 #### Package structure explanation
 pt.ipp.estg.doa.store <br>
 │<br>
+├── dto<br>
+│   ├── CustomerDTO<br>
+│   ├── Dto<br>
+│   ├── EmployeeDTO<br>
+│   ├── JewelryDTO<br>
+│   ├── OrderDTO<br>
+│   ├── OrderItemDTO<br>
+│   ├── PaymentDTO<br>
+│<br>
 ├── employees<br>
 │   ├── Employee.java<br>
 │   ├── Salesperson.java<br>
@@ -41,6 +50,8 @@ pt.ipp.estg.doa.store <br>
 │   └── PaymentManager.java (CRUD operations)<br>
 │<br>
 ├── utils<br>
+│   ├── csv<br>
+│   │   ├── files CSV format ("database")<br>
 │   ├── CSVUtil.java<br>
 │   ├── ValidationUtil.java<br>
 │   ├── Persistable.java (interface)<br>
