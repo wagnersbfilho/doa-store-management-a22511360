@@ -1,5 +1,9 @@
 ## DOA Store Management System
 
+#### Project Information
+   - <b>The project is available (public) in my personal GitHub repository:</b>
+   - https://github.com/wagnersbfilho/doa-store-management-a22511360
+
 #### Student Information
     - Wagner Filho
     - a22511360
