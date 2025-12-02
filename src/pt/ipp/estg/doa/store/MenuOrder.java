@@ -132,6 +132,7 @@ public class MenuOrder {
                     return true;
                 case 9:
                     System.out.println("Total Revenue: " + orderManager.calculateTotalRevenue());
+                    return true;
                 case 10:
                     return true;
             }

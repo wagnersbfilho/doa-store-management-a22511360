@@ -42,7 +42,7 @@ public class Main {
                     case ORDER:
                         if (MenuOrder.showMenu(scan)) continue;
                     case PAYMENT:
-                        break;
+                        if (MenuPayment.showMenu(scan)) continue;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("The choice must be a number. Try again! ");

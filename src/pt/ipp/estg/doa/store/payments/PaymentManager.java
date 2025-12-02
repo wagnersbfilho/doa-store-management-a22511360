@@ -20,7 +20,7 @@ public class PaymentManager extends AbstractManager<Payment> {
                 .toList();
     }
 
-    public List<Payment> findByStatus(PaymentMethod method) {
+    public List<Payment> findByMethod(PaymentMethod method) {
         List<Payment> payments = findAll();
         return payments.stream()
                 .filter(payment -> payment.getPaymentMethod().equals(method))
