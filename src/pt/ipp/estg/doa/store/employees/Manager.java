@@ -9,6 +9,12 @@ public class Manager extends Employee{
     private String department;
     private double bonus;
 
+    public Manager(String name, String nif, LocalDate hireDate, double salary, String department, double bonus) {
+        super(name, nif, hireDate, salary, EmployeeType.MANAGER);
+        this.department = department;
+        this.bonus = bonus;
+    }
+
     public Manager(int employeeId, String name, String nif, LocalDate hireDate, double salary, String department, double bonus) {
         super(employeeId, name, nif, hireDate, salary, EmployeeType.MANAGER);
         this.department = department;

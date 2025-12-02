@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 public class MenuCustomer {
 
-    public static boolean showMenuCustomer(Scanner scan) {
-        int option_customer;
+    public static boolean showMenu(Scanner scan) {
+        int option;
         System.out.println("--------------------------------");
         System.out.println("Choose an option for Customer!");
         System.out.println("--------------------------------");
@@ -25,11 +25,11 @@ public class MenuCustomer {
         System.out.println("Option 9: Find by email");
         System.out.println("Option 10: Back to previous menu.");
 
-        option_customer = scan.nextInt();
+        option = scan.nextInt();
         scan.nextLine();
         try {
             CustomerManager customerManager = new CustomerManager();
-            switch (option_customer) {
+            switch (option) {
                 case 1:
                     System.out.println("--- ALL CUSTOMER ---");
                     customerManager.findAll().stream().forEach(System.out::println);

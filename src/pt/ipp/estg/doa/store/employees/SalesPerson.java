@@ -9,6 +9,13 @@ public class SalesPerson extends Employee{
     private double commissionRate;
     private double totalSales;
 
+    public SalesPerson(String name, String nif, LocalDate hireDate, double salary,
+                       double commissionRate, double totalSales) {
+        super(name, nif, hireDate, salary, EmployeeType.SALESPERSON);
+        this.commissionRate = commissionRate;
+        this.totalSales = totalSales;
+    }
+
     public SalesPerson(int employeeId, String name, String nif, LocalDate hireDate, double salary,
                        double commissionRate, double totalSales) {
         super(employeeId, name, nif, hireDate, salary, EmployeeType.SALESPERSON);

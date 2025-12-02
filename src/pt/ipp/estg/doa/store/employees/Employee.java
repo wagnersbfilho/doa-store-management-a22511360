@@ -15,6 +15,14 @@ public class Employee extends Entity {
     private double salary;
     private EmployeeType type;
 
+    public Employee(String name, String nif, LocalDate hireDate, double salary, EmployeeType type) {
+        this.name = name;
+        this.nif = nif;
+        this.hireDate = hireDate;
+        this.salary = salary;
+        this.type = type;
+    }
+
     public Employee(int id, String name, String nif, LocalDate hireDate, double salary, EmployeeType type) {
         setId(id);
         this.name = name;

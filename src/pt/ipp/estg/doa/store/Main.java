@@ -1,6 +1,7 @@
 package pt.ipp.estg.doa.store;
 
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         int option = INIT;
-        Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in).useLocale(Locale.US);
 
         while (option != EXIT) {
             System.out.println("--------------------------------");
@@ -33,9 +34,9 @@ public class Main {
 
                 switch (option) {
                     case CUSTOMER:
-                        if (MenuCustomer.showMenuCustomer(scan)) continue;
+                        if (MenuCustomer.showMenu(scan)) continue;
                     case EMPLOYEE:
-                        break;
+                        if (MenuEmployee.showMenu(scan)) continue;
                     case JEWELRY:
                         break;
                     case ORDER:
