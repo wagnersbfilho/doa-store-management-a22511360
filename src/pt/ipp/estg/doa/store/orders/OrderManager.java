@@ -1,5 +1,6 @@
 package pt.ipp.estg.doa.store.orders;
 
+import pt.ipp.estg.doa.store.dto.OrderDTO;
 import pt.ipp.estg.doa.store.excpetion.ManagerValidationException;
 import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilOrder;
@@ -38,6 +39,29 @@ public class OrderManager extends AbstractManager<Order> {
     public double calculateTotalRevenue(){
         List<Order> orders = findAll();
         return orders.stream().mapToDouble(Order::getTotalAmount).sum();
+    }
+
+    public Order updateStatus(int id, OrderStatus status) throws ManagerValidationException {
+        Order order = findById(id);
+        if (order.getStatus().equals(OrderStatus.DELIVERED)) {
+            throw new ManagerValidationException("Cannot modify DELIVERED orders.");
+        }
+        if (order.getStatus().equals(OrderStatus.CANCELED)) {
+            throw new ManagerValidationException("Cannot modify CANCELED orders.");
+        }
+        OrderDTO dto = new OrderDTO();
+        dto.setStatus(status);
+        return super.update(id, dto);
+    }
+
+    public void deleteOrder(int id) throws ManagerValidationException {
+        Order order = findById(id);
+        if (order.getStatus().equals(OrderStatus.DELIVERED)) {
+            throw new ManagerValidationException("Cannot delete DELIVERED orders.");
+        }
+        OrderDTO dto = new OrderDTO();
+        dto.setStatus(OrderStatus.CANCELED);
+        super.update(id, dto);
     }
 
     @Override

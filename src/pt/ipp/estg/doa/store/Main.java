@@ -40,7 +40,7 @@ public class Main {
                     case JEWELRY:
                         if (MenuJewelry.showMenu(scan)) continue;
                     case ORDER:
-                        break;
+                        if (MenuOrder.showMenu(scan)) continue;
                     case PAYMENT:
                         break;
                 }
