@@ -10,6 +10,12 @@ public class Necklace extends Jewelry {
         this.length = length;
     }
 
+    public Necklace(String name, JewelryType type, String material,
+                    double weight, double price, int stock, Category category, double length) {
+        super(name, type, material, weight, price, stock, category);
+        this.length = length;
+    }
+
     public double getLength() {
         return length;
     }

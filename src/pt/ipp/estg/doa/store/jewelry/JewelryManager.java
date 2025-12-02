@@ -5,6 +5,8 @@ import pt.ipp.estg.doa.store.utils.AbstractManager;
 import pt.ipp.estg.doa.store.utils.CSVUtilJewelry;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class JewelryManager extends AbstractManager<Jewelry> {
 
@@ -43,11 +45,16 @@ public class JewelryManager extends AbstractManager<Jewelry> {
     }
 
     public boolean isInStock(String name) {
-        return !findByName(name).isEmpty();
+        List<Jewelry> jewelries = findByName(name);
+        return jewelries.stream()
+                .noneMatch(jewelry -> jewelry.getStock() <= 0);
     }
 
-    public boolean isLowStock(String name) {
-        return findByName(name).size() < STOCK_THRESHOLD;
+    public List<Jewelry> findLowStock() {
+        List<Jewelry> jewelries = findAll();
+        return jewelries.stream()
+                .filter(jewelry -> jewelry.getStock() < STOCK_THRESHOLD)
+                .collect(Collectors.toList());
     }
 
     @Override

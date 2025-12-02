@@ -15,6 +15,16 @@ public class Jewelry extends Entity {
     private int stock;
     private Category category;
 
+    public Jewelry(String name, JewelryType type, String material, double weight, double price, int stock, Category category) {
+        this.name = name;
+        this.type = type;
+        this.material = material;
+        this.weight = weight;
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+    }
+
     public Jewelry(int id, String name, JewelryType type, String material, double weight, double price, int stock, Category category) {
         setId(id);
         this.name = name;
@@ -55,13 +65,13 @@ public class Jewelry extends Entity {
         if(jewelryDTO.getStock() != null) this.setStock(jewelryDTO.getStock());
         if(jewelryDTO.getCategory() != null) this.setCategory(jewelryDTO.getCategory());
         if (this instanceof Earring) {
-            ((Earring) this).setClaspType(jewelryDTO.getClaspType());
+            if (jewelryDTO.getClaspType() != null) ((Earring) this).setClaspType(jewelryDTO.getClaspType());
         }
         if (this instanceof Necklace) {
-            ((Necklace) this).setLength(jewelryDTO.getLength());
+            if (jewelryDTO.getLength() != null) ((Necklace) this).setLength(jewelryDTO.getLength());
         }
         if (this instanceof Ring) {
-            ((Ring) this).setSize(jewelryDTO.getSize());
+            if (jewelryDTO.getSize() != null) ((Ring) this).setSize(jewelryDTO.getSize());
         }
     }
 

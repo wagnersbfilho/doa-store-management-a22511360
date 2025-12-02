@@ -38,7 +38,7 @@ public class Main {
                     case EMPLOYEE:
                         if (MenuEmployee.showMenu(scan)) continue;
                     case JEWELRY:
-                        break;
+                        if (MenuJewelry.showMenu(scan)) continue;
                     case ORDER:
                         break;
                     case PAYMENT:

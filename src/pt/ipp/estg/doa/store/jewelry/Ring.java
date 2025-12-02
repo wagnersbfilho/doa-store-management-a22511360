@@ -4,6 +4,12 @@ public class Ring extends Jewelry {
 
     private int size;
 
+    public Ring(String name, JewelryType type, String material,
+                double weight, double price, int stock, Category category, int size) {
+        super(name, type, material, weight, price, stock, category);
+        this.size = size;
+    }
+
     public Ring(int id, String name, JewelryType type, String material,
                 double weight, double price, int stock, Category category, int size) {
         super(id, name, type, material, weight, price, stock, category);
