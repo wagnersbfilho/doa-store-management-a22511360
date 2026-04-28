@@ -1,15 +1,7 @@
 ## DOA Store Management System
 
-#### Project Information
-   - <b>The project is available (public) in my personal GitHub repository:</b>
-   - https://github.com/wagnersbfilho/doa-store-management-a22511360
-
-#### Student Information
-    - Wagner Filho
-    - a22511360
-    
 #### Project Description
-    - This Project is a console-based Java application that manages the core operations of Jewelry  Store. The application is a lightweight solution that does not depend on database systems.
+This Project is a console-based Java application that manages the core operations of Jewelry  Store. The application is a lightweight solution that does not depend on database systems.
 
 #### Package structure explanation
 pt.ipp.estg.doa.store <br>
